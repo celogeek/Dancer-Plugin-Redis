@@ -12,7 +12,7 @@ Dancer::Plugin::Redis - easy database connections for Dancer applications
 
 our $VERSION = '0.02';
 
-my $settings = plugin_setting;
+my $settings;
 my %handles;
 # Hashref used as key for default handle, so we don't have a magic value that
 # the user could use for one of their connection names and cause problems
@@ -22,11 +22,12 @@ my $def_handle = {};
 register redis => sub {
     my $name = shift;
     my $handle = defined($name) ? $handles{$name} : $def_handle;
-    my $settings = _get_settings($name);
+    $settings ||= plugin_setting;
+    my $s = _get_settings($name);
 
     if ($handle->{dbh}) {
         if (time - $handle->{last_connection_check}
-            < $settings->{connection_check_threshold}) {
+            < $s->{connection_check_threshold}) {
             return $handle->{dbh};
         } else {
             if (_check_connection($handle->{dbh})) {
@@ -36,18 +37,18 @@ register redis => sub {
                 Dancer::Logger::debug(
                     "Redis connection went away, reconnecting"
                 );
-                return $handle->{dbh}= _get_connection($settings);
+                return $handle->{dbh}= _get_connection($s);
             }
         }
     } else {
         # Get a new connection
-        if (!$settings) {
+        if (!$s) {
             Dancer::Logger::error(
                 "No DB settings named $name, so cannot connect"
             );
             return;
         }
-        if ($handle->{dbh} = _get_connection($settings)) {
+        if ($handle->{dbh} = _get_connection($s)) {
             $handle->{last_connection_check} = time;
             return $handle->{dbh};
         } else {
