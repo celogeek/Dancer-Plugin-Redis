@@ -1,4 +1,12 @@
 Revision history for Dancer-Plugin-Redis
+0.03    2011-06-26
+        
+        celogeek :
+            Optimize redis connection lost and debug message
+            Revamp code
+            Remove time ping
+
+
 0.02    2011-01-01
         Change github url and copyright
 

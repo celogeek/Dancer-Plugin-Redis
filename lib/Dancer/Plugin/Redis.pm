@@ -1,131 +1,69 @@
 package Dancer::Plugin::Redis;
 
+# ABSTRACT: easy database connections for Dancer applications
+
 use strict;
+use warnings;
+use Carp;
+use Data::Dumper;
 use Dancer::Plugin;
 use Redis;
+use Try::Tiny;
 
-=head1 NAME
+# VERSION
 
-Dancer::Plugin::Redis - easy database connections for Dancer applications
+my $_settings;
+my $_handles_conf;
 
-=cut
+sub _handle {
+    my ($name) = @_;
+    $name = "_default" if not defined $name;
 
-our $VERSION = '0.02';
-
-my $settings;
-my %handles;
-# Hashref used as key for default handle, so we don't have a magic value that
-# the user could use for one of their connection names and cause problems
-# (Kudos to Igor Bujna for the idea)
-my $def_handle = {};
-
-register redis => sub {
-    my $name = shift;
-    my $handle = defined($name) ? $handles{$name} : $def_handle;
-    $settings ||= plugin_setting;
-    my $s = _get_settings($name);
-
-    if ($handle->{dbh}) {
-        if (time - $handle->{last_connection_check}
-            < $s->{connection_check_threshold}) {
-            return $handle->{dbh};
-        } else {
-            if (_check_connection($handle->{dbh})) {
-                $handle->{last_connection_check} = time;
-                return $handle->{dbh};
-            } else {
-                Dancer::Logger::debug(
-                    "Redis connection went away, reconnecting"
-                );
-                return $handle->{dbh}= _get_connection($s);
-            }
-        }
-    } else {
-        # Get a new connection
-        if (!$s) {
-            Dancer::Logger::error(
-                "No DB settings named $name, so cannot connect"
-            );
-            return;
-        }
-        if ($handle->{dbh} = _get_connection($s)) {
-            $handle->{last_connection_check} = time;
-            return $handle->{dbh};
-        } else {
-            return;
-        }
+    my $h = $_handles_conf->{$name};
+    if (defined $h && $h->ping eq 'PONG') {
+        return $h;
     }
-};
 
-register_plugin;
-
-# Given the settings to use, try to get a database connection
-sub _get_connection {
-    my $settings = shift;
-
-    my $r = Redis->new(
-	server =>  $settings->{server}, debug =>  $settings->{debug} 
-    );
-
-    if (!$r) {
-        Dancer::Logger::error(
-            "Redis connection failed - " 
+    my @conf;
+    if ($name eq '_default') {
+        @conf = (
+            server => $_settings->{server},
+            debug => $_settings->{debug},
+            encoding => $_settings->{encoding},
+        );
+    } else {
+        @conf = (
+            server => $_settings->{connections}->{$name}->{server},
+            debug => $_settings->{connections}->{$name}->{debug},
+            encoding => $_settings->{connections}->{$name}->{encoding},
         );
     }
 
-    return $r;
-}
-
-
-
-# Check the connection is alive
-sub _check_connection {
-    my $dbh = shift;
-    return unless $dbh;
-    my $result;
-    # Redis.pm die when the connection is closed
-    eval { $result = $dbh->ping; }; return 0 if $@;
-    if ($result eq "PONG") {
-            return 1;
-    };
-    return 0;
-}
-
-sub _get_settings {
-    my $name = shift;
-    my $return_settings;
-
-    # If no name given, just return the default settings
-    # (Take a copy and remove the connections key, so we have only the main
-    # connection details)
-    if (!defined $name) {
-        $return_settings = { %$settings };
-    } else {
-        # If there are no named connections in the config, bail now:
-        return unless exists $settings->{connections};
-
-
-        # OK, find a matching config for this name:
-        if (my $settings = $settings->{connections}{$name}) {
-            $return_settings = { %$settings };
-        } else {
-            # OK, didn't match anything
-            Dancer::Logger::error(
-                "Asked for a database handle named '$name' but no matching  "
-               ."connection details found in config"
+    if (@conf) {
+        try {
+            $h = $_handles_conf->{$name} = Redis->new(
+                @conf
             );
+        };
+        if (defined $h && $h->ping eq 'PONG') {
+            return $h;
+        } else {
+            croak "Can't connect to $name redis connection ...";
         }
-    }
-    
-    # We should have soemthing to return now; remove any unrelated connections
-    # (only needed if this is the default connection), and make sure we have a
-    # connection_check_threshold, then return what we found
-    delete $return_settings->{connections};
-    $return_settings->{connection_check_threshold} ||= 5;
-    return $return_settings;
 
+    } else {
+        croak "The redis connection conf $name doesn't exists !";
+    }
 }
 
+
+register redis => sub {
+    my ($name) = @_;
+    $_settings ||= plugin_setting;
+    return _handle($name);
+};
+
+register_plugin;
 
 =head1 SYNOPSIS
 
@@ -165,6 +103,12 @@ should be specified as, for example:
         Redis:
             server: '127.0.0.1:6379'
             debug: 0
+            encoding: utf8
+            connections:
+                test:
+                    server: '127.0.0.1:6380'
+                    debug: 1
+                    encoding: utf8
 
 The C<connectivity-check-threshold> setting is optional, if not provided, it
 will default to 30 seconds.  If the database keyword was last called more than
