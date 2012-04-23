@@ -20,7 +20,7 @@ sub _handle {
     $name = "_default" if not defined $name;
 
     my $h = $_handles_conf->{$name};
-    if (defined $h && $h->ping eq 'PONG') {
+    if (defined $h && ($h->ping || '') eq 'PONG') {
         return $h;
     }
 
