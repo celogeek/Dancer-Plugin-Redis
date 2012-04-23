@@ -1,4 +1,9 @@
 Revision history for Dancer-Plugin-Redis
+0.04    2012-04-23
+
+        celogeek:
+            fix warnings if connection loose
+
 0.03    2011-06-26
         
         celogeek :
