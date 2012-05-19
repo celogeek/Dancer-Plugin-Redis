@@ -1,4 +1,13 @@
 Revision history for Dancer-Plugin-Redis
+
+[Celogeek / Geistteufel]
+
+0.06    2012-05-19
+
+        simplify the code
+        use latest reconnect option of Redis module
+
+
 0.05    2012-05-12
 
         change base author
@@ -6,16 +15,15 @@ Revision history for Dancer-Plugin-Redis
 
 0.04    2012-04-23
 
-        celogeek:
-            fix warnings if connection loose
+        fix warnings if connection loose
 
 0.03    2011-06-26
         
-        celogeek :
-            Optimize redis connection lost and debug message
-            Revamp code
-            Remove time ping
+        Optimize redis connection lost and debug message
+        Revamp code
+        Remove time ping
 
+[Christophe Nowicki]
 
 0.02    2011-01-01
         Change github url and copyright
