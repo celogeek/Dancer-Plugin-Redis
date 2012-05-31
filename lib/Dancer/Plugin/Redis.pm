@@ -138,10 +138,6 @@ L<http://cpanratings.perl.org/d/Dancer-Plugin-Redis>
 
 L<http://search.cpan.org/dist/Dancer-Plugin-Redis/>
 
-=item * Github project
-
-L<https://github.com/geistteufel/Dancer-Plugin-Redis>
-
 =back
 
 You can find the author on IRC in the channel C<#dancer> on irc.perl.org.
