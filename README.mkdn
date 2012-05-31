@@ -1,0 +1,121 @@
+# NAME
+
+Dancer::Plugin::Redis - easy database connections for Dancer applications
+
+# VERSION
+
+version 0.07
+
+# SYNOPSIS
+
+    use Dancer;
+    use Dancer::Plugin::Redis;
+
+    # Calling the redis keyword will get you a connected Redis Database handle:
+    get '/widget/view/:id' => sub {
+        template 'display_widget', { widget => redis->get('hash_key'); };
+    };
+
+    dance;
+
+Redis connection details are read from your Dancer application config - see
+below.
+
+# DESCRIPTION
+
+Provides an easy way to obtain a connected Redis database handle by simply calling
+the redis keyword within your [Dancer](http://search.cpan.org/perldoc?Dancer) application.
+
+# CONFIGURATION
+
+Connection details will be taken from your Dancer application config file, and
+should be specified as, for example: 
+
+    plugins:
+        Redis:
+            server: '127.0.0.1:6379'
+            debug: 0
+            encoding: utf8
+            reconnect: 60
+            connections:
+                test:
+                    server: '127.0.0.1:6380'
+                    debug: 1
+                    encoding: utf8
+
+`server` is the ip:port of redis server
+
+`debug` activate the debug of redis
+
+`encoding` activate auto encoding, if you want raw data, put nothing after encoding
+
+`reconnect` is the number of second which try to reconnect if we have lost connection, default to 60
+
+# GETTING A DATABASE HANDLE
+
+Calling `redis` will return a connected database handle; the first time it is
+called, the plugin will establish a connection to the database, and return a
+reference to the DBI object.  On subsequent calls, the same DBI connection
+object will be returned. The connection will be refresh automatically with the Redis `reconnect` option.
+
+If you have declared named connections as described above in 'DEFINING MULTIPLE
+CONNECTIONS', then calling the database() keyword with the name of the
+connection as specified in the config file will get you a database handle
+connected with those details.
+
+# CONTRIBUTING
+
+This module is developed on Github at:
+
+[https://github.com/geistteufel/Dancer-Plugin-Redis](https://github.com/geistteufel/Dancer-Plugin-Redis)
+
+Feel free to fork the repo and submit pull requests!
+
+# BUGS
+
+Please report any bugs or feature requests to `bug-dancer-plugin-database at rt.cpan.org`, or through
+the web interface at [http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Dancer-Plugin-Redis](http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Dancer-Plugin-Redis).  I will be notified, and then you'll
+automatically be notified of progress on your bug as I make changes.
+
+# SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc Dancer::Plugin::Redis
+
+You can also look for information at:
+
+- RT: CPAN's request tracker
+
+[http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer-Plugin-Redis](http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer-Plugin-Redis)
+
+- AnnoCPAN: Annotated CPAN documentation
+
+[http://annocpan.org/dist/Dancer-Plugin-Redis](http://annocpan.org/dist/Dancer-Plugin-Redis)
+
+- CPAN Ratings
+
+[http://cpanratings.perl.org/d/Dancer-Plugin-Redis](http://cpanratings.perl.org/d/Dancer-Plugin-Redis)
+
+- Search CPAN
+
+[http://search.cpan.org/dist/Dancer-Plugin-Redis/](http://search.cpan.org/dist/Dancer-Plugin-Redis/)
+
+You can find the author on IRC in the channel `#dancer` on <irc.perl.org>.
+
+# SEE ALSO
+
+[Dancer](http://search.cpan.org/perldoc?Dancer)
+
+[DBI](http://search.cpan.org/perldoc?DBI)
+
+# AUTHOR
+
+Geistteufel <geistteufel@celogeek.fr>
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Geistteufel <geistteufel@celogeek.fr>.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
