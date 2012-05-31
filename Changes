@@ -1,5 +1,11 @@
 Revision history for Dancer-Plugin-Redis
 
+[Celogeek / Geistteufel]
+
+0.09    2012-06-01
+
+        fix pod
+
 [Ovid / Celogeek / Geistteufel]
 
 0.08    2012-05-31
