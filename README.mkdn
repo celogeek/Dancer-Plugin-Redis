@@ -102,6 +102,7 @@ You can also look for information at:
 [http://search.cpan.org/dist/Dancer-Plugin-Redis/](http://search.cpan.org/dist/Dancer-Plugin-Redis/)
 
 - Github project
+
 [https://github.com/geistteufel/Dancer-Plugin-Redis](https://github.com/geistteufel/Dancer-Plugin-Redis)
 
 You can find the author on IRC in the channel `#dancer` on <irc.perl.org>.
