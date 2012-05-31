@@ -1,9 +1,17 @@
 Revision history for Dancer-Plugin-Redis
 
-[Celogeek / Geistteufel]
+[Ovid / Celogeek / Geistteufel]
 
 0.08    2012-05-31
+
+        [Ovid]
         Add some basic tests
+        Add meta and markdown
+
+        [Celogeek / Geistteufel]
+        Add link to github project
+
+[Celogeek / Geistteufel]
 
 0.07    2012-05-21
 
