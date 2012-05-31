@@ -13,7 +13,6 @@ use warnings;
         my ( $class, %args ) = @_;
         bless \%args => $class;
     }
-    sub ping { 'PONG' }
 
     sub AUTOLOAD {
         shift;
