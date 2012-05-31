@@ -144,7 +144,7 @@ L<https://github.com/geistteufel/Dancer-Plugin-Redis>
 
 =back
 
-You can find the author on IRC in the channel C<#dancer> on <irc.perl.org>.
+You can find the author on IRC in the channel C<#dancer> on irc.perl.org.
 
 =head1 SEE ALSO
 
