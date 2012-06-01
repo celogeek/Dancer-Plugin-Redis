@@ -34,11 +34,13 @@ should be specified as, for example:
             debug: 0
             encoding: utf8
             reconnect: 60
+            password: yourpassword
             connections:
                 test:
                     server: '127.0.0.1:6380'
                     debug: 1
                     encoding: utf8
+                    password: yourpassword
 
 C<server> is the ip:port of redis server
 
@@ -48,6 +50,8 @@ C<encoding> activate auto encoding, if you want raw data, put nothing after enco
 
 C<reconnect> is the number of second which try to reconnect if we have lost connection, default to 60
                     
+C<password> pass AUTH to Redis if you use the requirepass config. You can skip this option if you don't have requirepass set.
+
 =head1 GETTING A DATABASE HANDLE
 
 Calling C<redis> will return a connected database handle; the first time it is
@@ -64,13 +68,36 @@ connected with those details.
 
 use strict;
 use warnings;
+# VERSION
 use Carp;
 use Data::Dumper;
 use Dancer::Plugin;
-use Redis 1.951;
 use Try::Tiny;
 
-# VERSION
+{package RedisWithAuthSupport;
+    use strict;
+    use warnings;
+    use parent 'Redis';
+
+    my $PASSWORD;
+
+    sub new {
+        my ($class, %param) = @_;
+
+        $PASSWORD = delete $param{password};
+
+        return $class->SUPER::new(%param);
+    }
+
+    sub __connect {
+        my $self = shift;
+
+        $self->SUPER::__connect(@_);
+        $self->auth($PASSWORD) if defined $PASSWORD;
+
+        return;
+    }
+}
 
 my $_settings;
 my $_handles;
@@ -85,11 +112,12 @@ register redis => sub {
     my $conf = $name eq '_default' ? $_settings : $_settings->{connections}->{$name};
     croak "$name is not defined in your redis conf, please check the doc" unless defined $conf;
 
-    return $_handles->{$name} = Redis->new(
+    return $_handles->{$name} = RedisWithAuthSupport->new(
         server => $conf->{server},
         debug => $conf->{debug},
         encoding => $conf->{encoding},
         reconnect => $conf->{reconnect} // 60,
+        password => $conf->{password},
     );
 
 };
