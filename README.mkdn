@@ -4,7 +4,7 @@ Dancer::Plugin::Redis - easy database connections for Dancer applications
 
 # VERSION
 
-version 0.08
+version 0.10
 
 # SYNOPSIS
 
@@ -37,11 +37,13 @@ should be specified as, for example:
             debug: 0
             encoding: utf8
             reconnect: 60
+            password: yourpassword
             connections:
                 test:
                     server: '127.0.0.1:6380'
                     debug: 1
                     encoding: utf8
+                    password: yourpassword
 
 `server` is the ip:port of redis server
 
@@ -50,6 +52,8 @@ should be specified as, for example:
 `encoding` activate auto encoding, if you want raw data, put nothing after encoding
 
 `reconnect` is the number of second which try to reconnect if we have lost connection, default to 60
+
+`password` pass AUTH to Redis if you use the requirepass config. You can skip this option if you don't have requirepass set.
 
 # GETTING A DATABASE HANDLE
 

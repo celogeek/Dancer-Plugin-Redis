@@ -2,6 +2,10 @@ Revision history for Dancer-Plugin-Redis
 
 [Celogeek / Geistteufel]
 
+0.10    2012-06-02
+
+        Add support of password option (requirepass)
+
 0.09    2012-06-01
 
         fix pod
