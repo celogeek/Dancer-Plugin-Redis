@@ -79,21 +79,29 @@ use Try::Tiny;
     use warnings;
     use parent 'Redis';
 
-    my $PASSWORD;
-
     sub new {
         my ($class, %param) = @_;
 
-        $PASSWORD = delete $param{password};
+        my $self = $class->SUPER::new(%param);
+        $self->{password} = delete $param{password};
+        $self->__auth;
 
-        return $class->SUPER::new(%param);
+        return $self;
     }
 
     sub __connect {
         my $self = shift;
 
-        $self->SUPER::__connect(@_);
-        $self->auth($PASSWORD) if defined $PASSWORD;
+        $self->SUPER::__connect;
+        $self->__auth;
+
+        return;
+    }
+
+    sub __auth {
+        my $self = shift;
+
+        $self->auth($self->{password}) if defined $self->{password};
 
         return;
     }
