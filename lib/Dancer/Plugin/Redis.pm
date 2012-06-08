@@ -138,7 +138,7 @@ __END__
 
 This module is developed on Github at:
 
-L<https://github.com/geistteufel/Dancer-Plugin-Redis>
+L<https://github.com/celogeek/Dancer-Plugin-Redis>
 
 Feel free to fork the repo and submit pull requests!
 
