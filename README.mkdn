@@ -4,7 +4,7 @@ Dancer::Plugin::Redis - easy database connections for Dancer applications
 
 # VERSION
 
-version 0.11
+version 0.12
 
 # SYNOPSIS
 
@@ -71,7 +71,7 @@ connected with those details.
 
 This module is developed on Github at:
 
-[https://github.com/geistteufel/Dancer-Plugin-Redis](https://github.com/geistteufel/Dancer-Plugin-Redis)
+[https://github.com/celogeek/Dancer-Plugin-Redis](https://github.com/celogeek/Dancer-Plugin-Redis)
 
 Feel free to fork the repo and submit pull requests!
 
@@ -117,11 +117,11 @@ You can find the author on IRC in the channel `#dancer` on irc.perl.org.
 
 # AUTHOR
 
-Geistteufel <geistteufel@celogeek.fr>
+celogeek <me@celogeek.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Geistteufel <geistteufel@celogeek.fr>.
+This software is copyright (c) 2011 by celogeek <me@celogeek.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
