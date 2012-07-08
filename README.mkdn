@@ -4,7 +4,7 @@ Dancer::Plugin::Redis - easy database connections for Dancer applications
 
 # VERSION
 
-version 0.12
+version 0.13
 
 # SYNOPSIS
 
@@ -67,46 +67,6 @@ CONNECTIONS', then calling the database() keyword with the name of the
 connection as specified in the config file will get you a database handle
 connected with those details.
 
-# CONTRIBUTING
-
-This module is developed on Github at:
-
-[https://github.com/celogeek/Dancer-Plugin-Redis](https://github.com/celogeek/Dancer-Plugin-Redis)
-
-Feel free to fork the repo and submit pull requests!
-
-# BUGS
-
-Please report any bugs or feature requests to `bug-dancer-plugin-database at rt.cpan.org`, or through
-the web interface at [http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Dancer-Plugin-Redis](http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Dancer-Plugin-Redis).  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-# SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Dancer::Plugin::Redis
-
-You can also look for information at:
-
-- RT: CPAN's request tracker
-
-[http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer-Plugin-Redis](http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer-Plugin-Redis)
-
-- AnnoCPAN: Annotated CPAN documentation
-
-[http://annocpan.org/dist/Dancer-Plugin-Redis](http://annocpan.org/dist/Dancer-Plugin-Redis)
-
-- CPAN Ratings
-
-[http://cpanratings.perl.org/d/Dancer-Plugin-Redis](http://cpanratings.perl.org/d/Dancer-Plugin-Redis)
-
-- Search CPAN
-
-[http://search.cpan.org/dist/Dancer-Plugin-Redis/](http://search.cpan.org/dist/Dancer-Plugin-Redis/)
-
-You can find the author on IRC in the channel `#dancer` on irc.perl.org.
-
 # SEE ALSO
 
 [Dancer](http://search.cpan.org/perldoc?Dancer)
@@ -114,6 +74,15 @@ You can find the author on IRC in the channel `#dancer` on irc.perl.org.
 [DBI](http://search.cpan.org/perldoc?DBI)
 
 [Redis](http://search.cpan.org/perldoc?Redis)
+
+# BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/celogeek/Dancer-Plugin-Redis/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 # AUTHOR
 
