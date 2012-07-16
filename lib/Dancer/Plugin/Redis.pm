@@ -73,39 +73,7 @@ use Carp;
 use Data::Dumper;
 use Dancer::Plugin;
 use Try::Tiny;
-
-{package RedisWithAuthSupport;
-    use strict;
-    use warnings;
-    use parent 'Redis';
-
-    sub new {
-        my ($class, %param) = @_;
-
-        my $self = $class->SUPER::new(%param);
-        $self->{password} = delete $param{password};
-        $self->__auth;
-
-        return $self;
-    }
-
-    sub __connect {
-        my $self = shift;
-
-        $self->SUPER::__connect;
-        $self->__auth;
-
-        return;
-    }
-
-    sub __auth {
-        my $self = shift;
-
-        $self->auth($self->{password}) if defined $self->{password};
-
-        return;
-    }
-}
+use RedisWithAuthSupport;
 
 my $_settings;
 my $_handles;
