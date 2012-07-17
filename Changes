@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    Move to bundle plugin version number
+
 0.14      2012-07-16 22:32:14 Europe/Paris
 
     Use Dist::Zilla::PluginBundle::Author::Celogeek v0.7
