@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    * update redis deps
+
 0.2       2012-07-17 15:28:31 Europe/Paris
 
     Move to bundle plugin version number

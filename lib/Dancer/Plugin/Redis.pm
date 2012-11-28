@@ -73,7 +73,7 @@ use Carp;
 use Data::Dumper;
 use Dancer::Plugin;
 use Try::Tiny;
-use RedisWithAuthSupport;
+use Redis 1.955;
 
 my $_settings;
 my $_handles;
@@ -88,7 +88,7 @@ register redis => sub {
     my $conf = $name eq '_default' ? $_settings : $_settings->{connections}->{$name};
     croak "$name is not defined in your redis conf, please check the doc" unless defined $conf;
 
-    return $_handles->{$name} = RedisWithAuthSupport->new(
+    return $_handles->{$name} = Redis->new(
         server => $conf->{server},
         debug => $conf->{debug},
         encoding => $conf->{encoding},
