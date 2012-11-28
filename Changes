@@ -1,6 +1,7 @@
 {{$NEXT}}
 
-    * update redis deps
+    * update meta
+    * update redis deps : use password generator from it
 
 0.2       2012-07-17 15:28:31 Europe/Paris
 
