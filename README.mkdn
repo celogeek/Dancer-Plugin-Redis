@@ -4,7 +4,7 @@ Dancer::Plugin::Redis - easy database connections for Dancer applications
 
 # VERSION
 
-version 0.3
+version 0.4
 
 # SYNOPSIS
 
@@ -25,6 +25,12 @@ below.
 
 Provides an easy way to obtain a connected Redis database handle by simply calling
 the redis keyword within your [Dancer](http://search.cpan.org/perldoc?Dancer) application.
+
+# METHODS
+
+## redis
+
+Keywords redis, that use your config to connect to redis
 
 # CONFIGURATION
 
