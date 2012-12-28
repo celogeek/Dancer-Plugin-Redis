@@ -9,9 +9,11 @@ use TestApp;
 use Dancer qw/:syntax/;
 BEGIN {
     require Dancer::Test;
-    if (Dancer->VERSION ge '1.99') {
+    if (dancer_version ge '1.99') {
+        diag "Dancer 2";
         Dancer::Test->import('TestApp');
     } else {
+        diag "Dancer 1";
         Dancer::Test->import();
     }
 }
