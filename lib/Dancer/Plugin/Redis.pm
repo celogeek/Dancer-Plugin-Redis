@@ -78,6 +78,12 @@ use Redis 1.955;
 my $_settings;
 my $_handles;
 
+=method redis
+
+Keywords redis, that use your config to connect to redis
+
+=cut
+
 sub redis {
     shift if dancer_version ge '1.99';
     my ($name) = @_;
