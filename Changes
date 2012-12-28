@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    * Support of Dancer2
+
 0.3       2012-11-28 19:11:49 Europe/Paris
 
     * update meta
