@@ -85,8 +85,8 @@ Keywords redis, that use your config to connect to redis
 =cut
 
 sub redis {
-    shift if dancer_version ge '1.99';
-    my ($name) = @_;
+    my ($dsl, $name) = @_;
+    $name = $dsl if dancer_version lt '1.99';
     $name = "_default" if not defined $name;
     return $_handles->{$name} if exists $_handles->{$name};
 
