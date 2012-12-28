@@ -98,7 +98,8 @@ register redis => sub {
 
 };
 
-register_plugin;
+register_plugin for_versions => [ 1, 2 ];
+
 
 1;
 __END__
