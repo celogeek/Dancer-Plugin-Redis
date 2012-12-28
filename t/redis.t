@@ -1,15 +1,24 @@
 use strict;
 use warnings;
 use Test::More import => ['!pass'];
+use JSON ();
 
 use File::Spec;
-use Dancer::Test;
 use lib File::Spec->catdir( 't', 'lib' );
 use TestApp;
+use Dancer qw/:syntax/;
+BEGIN {
+    require Dancer::Test;
+    if (Dancer->VERSION ge '1.99') {
+        Dancer::Test->import('TestApp');
+    } else {
+        Dancer::Test->import();
+    }
+}
 
 my $response = dancer_response 'GET' => '/';
 ok $response, 'We should be able to call our routes';
-is_deeply $response->content, [qw/get foo/],
+is_deeply JSON::decode_json($response->content), [qw/get foo/],
   '... it should have called Redis internally';
 
 done_testing;

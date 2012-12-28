@@ -70,7 +70,7 @@ use strict;
 use warnings;
 # VERSION
 use Carp;
-use Data::Dumper;
+use Dancer qw/:syntax/;
 use Dancer::Plugin;
 use Try::Tiny;
 use Redis 1.955;
@@ -78,7 +78,8 @@ use Redis 1.955;
 my $_settings;
 my $_handles;
 
-register redis => sub {
+sub redis {
+    shift if dancer_version ge '1.99';
     my ($name) = @_;
     $name = "_default" if not defined $name;
     return $_handles->{$name} if exists $_handles->{$name};
@@ -98,6 +99,7 @@ register redis => sub {
 
 };
 
+register redis => \&redis;
 register_plugin for_versions => [ 1, 2 ];
 
 
