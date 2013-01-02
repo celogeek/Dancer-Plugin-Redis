@@ -84,7 +84,8 @@ Keywords redis, that use your config to connect to redis
 =cut
 
 sub redis {
-    my ($dsl, $name) = plugin_args(@_);
+    my @args = @_;
+    my (undef, $name) = plugin_args(@args);
     $name = "_default" if not defined $name;
     return $_handles->{$name} if exists $_handles->{$name};
 
