@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    Simplify test
+
 0.5       2013-01-02 20:18:07 Europe/Paris
 
     * use plugin_args instead of dancer_version.
