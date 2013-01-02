@@ -70,7 +70,6 @@ use strict;
 use warnings;
 # VERSION
 use Carp;
-use Dancer qw/:syntax/;
 use Dancer::Plugin;
 use Try::Tiny;
 use Redis 1.955;
@@ -85,8 +84,7 @@ Keywords redis, that use your config to connect to redis
 =cut
 
 sub redis {
-    my ($dsl, $name) = @_;
-    $name = $dsl if dancer_version lt '1.99';
+    my ($dsl, $name) = plugin_args(@_);
     $name = "_default" if not defined $name;
     return $_handles->{$name} if exists $_handles->{$name};
 
