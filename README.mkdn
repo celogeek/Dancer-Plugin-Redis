@@ -4,7 +4,7 @@ Dancer::Plugin::Redis - easy database connections for Dancer applications
 
 # VERSION
 
-version 0.5
+version 0.6
 
 # SYNOPSIS
 
