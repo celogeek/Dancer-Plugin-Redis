@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    Upgrade test to support new D2 Dancer::Test call
+
 0.6       2013-01-03 00:59:48 Europe/Paris
 
     Simplify test

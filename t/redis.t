@@ -7,7 +7,7 @@ use File::Spec;
 use lib File::Spec->catdir( 't', 'lib' );
 use TestApp;
 use Dancer qw/:syntax/;
-use Dancer::Test 'TestApp' => 'TestApp';
+use Dancer::Test apps => ['TestApp'];
 
 diag('Dancer Version : ', Dancer->VERSION);
 my $response = dancer_response 'GET' => '/';
